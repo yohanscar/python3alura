@@ -6,7 +6,7 @@ def jogar():
     print("********************************")
 
     palavra_secreta = "banana".upper()
-    letras_acertadas = []
+    letras_acertadas = ["_" for letra in palavra_secreta]
 
     for x in palavra_secreta:
         letras_acertadas.append("_")
