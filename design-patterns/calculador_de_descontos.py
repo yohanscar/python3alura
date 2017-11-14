@@ -1,31 +1,29 @@
 # -*- coding: UTF-8 -*-
-# calculador_de_descontos.py
-from descontos import Desconto_por_cinco_itens, Desconto_por_mais_de_quinhentos_reais
+
+from descontos import Desconto_por_cinco_itens, Desconto_por_mais_de_quinhentos_reais, Sem_desconto
 
 class Calculador_de_descontos(object):
 
-    def calcula(self, orcamento):
+	def calcula(self, orcamento):
 
-        desconto = Desconto_por_cinco_itens().calcular(orcamento)
-        if(desconto == 0):
-            desconto = Desconto_por_mais_de_quinhentos_reais().calcular(orcamento)
+		desconto = Desconto_por_cinco_itens(
+			Desconto_por_mais_de_quinhentos_reais(Sem_desconto())
+		).calcula(orcamento)
 
-        # mais um if que testa se desconto é 0 e aplica aplica o desconto
-
-        return desconto
-
-        # outras possíveis regras aqui
+		return desconto
+		
 
 if __name__ == '__main__':
 
-    from orcamento import Orcamento, Item
+	from orcamento import Orcamento, Item
 
-    orcamento = Orcamento()
-    orcamento.adiciona_item(Item('Item A', 100.0))
-    orcamento.adiciona_item(Item('Item B', 50.0))
-    orcamento.adiciona_item(Item('Item C', 400.0))
+	orcamento = Orcamento()
+	orcamento.adiciona_item(Item('ITEM - 1', 100))
+	orcamento.adiciona_item(Item('ITEM - 2', 50))
+	orcamento.adiciona_item(Item('ITEM - 3', 400))
 
-    calculador_de_descontos = Calculador_de_descontos()
-    desconto = calculador_de_descontos.calcula(orcamento)
-    print 'Desconto calculado : %s' % (desconto)
-    # imprime 38.5
+	calculador = Calculador_de_descontos()
+
+	desconto = calculador.calcula(orcamento)
+
+	print 'Desconto calculado %s' % (desconto)		
